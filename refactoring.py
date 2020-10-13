@@ -1,72 +1,72 @@
 import pygame
 from pygame.draw import *
 
-
+# draw house
 def house(canvas, x, y, size: {(0, 1)}):
     rect(
         canvas, 
         (0, 0, 0), 
-        (x + 250*size, y + 95*size, 35*size, 55*size)
+        (x + 125*size, y + 47*size, 17*size, 27*size)
     )
     rect(
         canvas, 
         (128, 128, 0), 
-        (x + 50*size, y + 200*size, 350*size, 500*size)
+        (x + 25*size, y + 100*size, 175*size, 250*size)
     )
     polygon(
         canvas, 
         (0, 0, 0), 
         (
-            (x + 25*size, y + 200*size),
-                                (x + 425*size, y + 200*size),
-                                (x + 375*size, y + 150*size),
-                                (x + 75*size, y + 150*size)
+            (x + 12*size, y + 100*size),
+                                (x + 212*size, y + 100*size),
+                                (x + 187*size, y + 37*size),
+                                (x + 37*size, y + 75*size)
         )
     )
     rect(
         canvas, 
         (128, 128, 128), 
-        (x + 25*size, y + 375*size, 400*size, 50*size)
+        (x + 12*size, y + 187*size, 200*size, 25*size)
     )
     rect(
         canvas, 
         (128, 0, 0), 
-        (x + 75*size, y + 225*size, 300*size, 125*size)
+        (x + 37*size, y + 112*size, 150*size, 62*size)
     )
     rect(
         canvas, 
         (128, 0, 0), 
-        (x + 75*size, y + 475*size, 80*size, 125*size)
+        (x + 37*size, y + 237*size, 40*size, 62*size)
     )
     rect(
         canvas, 
         (255, 255, 0), 
-        (x + 275*size, y + 475*size, 80*size, 125*size)
+        (x + 137*size, y + 237*size, 40*size, 62*size)
     )
     rect(
         canvas, 
         (128, 0, 0), 
-        (x + 175*size, y + 475*size, 80*size, 125*size)
+        (x + 87*size, y + 237*size, 40*size, 62*size)
     )
     rect(
         canvas, 
         (0, 0, 0), 
-        (x + 150*size, y + 85*size, 20*size, 80*size)
+        (x + 75*size, y + 42*size, 10*size, 40*size)
     )
     rect(
         canvas, 
         (128, 128, 128), 
-        (x + 30*size, y + 310*size, 390*size, 10*size)
+        (x + 15*size, y + 155*size, 195*size, 5*size)
     )
     for i in range(5):
         rect(
             canvas, 
             (128, 128, 128), 
-            (x + 60*size + 72*size * i, y + 320*size, 40*size, 80*size)
+            (x + 30*size + 36*size * i, y + 160*size, 20*size, 40*size)
         )
     return
 
-
+# draw ghost
 def ghost(canvas, x, y, size: {(0, 1)}):
     circle(
         canvas, 
@@ -119,20 +119,49 @@ def ghost(canvas, x, y, size: {(0, 1)}):
     )
     return
 
+# draw sky
+def sky(screen, x, y):
+    rect(screen, (90, 90, 90), (x, y, x + 720, y + 540))
+    rect(screen, (0, 0, 0), (x, y, x + 720, y))
+
+# draw clouds
+def clouds(screen, x, y, lenth, height):
+    ellipse(screen, (100, 100, 100), (2*x + 50, y + 75, 5*lenth, 4*height))
+    ellipse(screen, (128, 128, 128), (x, 3*y - 20, 6*lenth, 3*height))
+    ellipse(screen, (60, 60, 60), (x, y, 6*lenth, 4*height))
+
+# draw transpanent ghost
+def surface(x, y, angle):
+    surf = pygame.Surface((200, 200))
+    surf.set_colorkey((0, 0, 0))
+    surf.set_alpha(angle)
+    ghost(surf, 0, 0, 1)
+    screen.blit(surf, (x, y))
+
+# draw transpapent cloud
+def transp_cloud(x, y, angle):
+    surf_6 = pygame.Surface((x, y))
+    surf_6.set_colorkey((0, 0, 0))
+    surf_6.set_alpha(angle)
+    ellipse(surf_6, (105, 105, 105), (0, 0, x, y - 50))
+    screen.blit(surf_6, (2*y, x - 50))
+
+# draw fog
+def fog(x, y, angle):
+    surf_5 = pygame.Surface((y - 100, 3 * x))
+    surf_5.set_colorkey((0, 0, 0))
+    surf_5.set_alpha(angle)
+    screen.blit(surf_5, (x, y))
+
 
 pygame.init()
 
 FPS = 30
 screen = pygame.display.set_mode((720, 1080))
 
-# sky 
-rect(screen, (90, 90, 90), (0, 0, 720, 540))
-rect(screen, (0, 0, 0), (0, 540, 720, 540))
 
-# clouds
-ellipse(screen, (100, 100, 100), (250, 175, 500, 100))
-ellipse(screen, (128, 128, 128), (100, 280, 600, 75))
-ellipse(screen, (60, 60, 60), (100, 100, 600, 100))
+sky(screen, 0, 0)
+clouds(screen, 100, 100, 100, 25)
 
 # moon
 circle(screen, (255, 255, 255), (600, 90), 70)
@@ -140,41 +169,17 @@ circle(screen, (255, 255, 255), (600, 90), 70)
 # one more cloud
 ellipse(screen, (140, 140, 140), (500, 100, 600, 75))
 
-# fog
-surf_5 = pygame.Surface((600, 150))
-surf_5.set_colorkey((0, 0, 0))
-surf_5.set_alpha(200)
-screen.blit(surf_5, (50, 700))
+fog(50, 700, 200)
 
-# houses
-house(screen, 500, 200, 0.5)
-house(screen, 200, 320, 0.4)
-house(screen, 30, 380, 0.4)
+house(screen, 500, 200, 1)
+house(screen, 200, 320, 1)
+house(screen, 30, 380, 1)
 
-# transparent cloud
-surf_6 = pygame.Surface((600, 150))
-surf_6.set_colorkey((0, 0, 0))
-surf_6.set_alpha(200)
-ellipse(surf_6, (105, 105, 105), (0, 0, 600, 100))
-screen.blit(surf_6, (300, 550))
+transp_cloud(600, 150, 200)
 
-surf_1 = pygame.Surface((200, 200))
-surf_1.set_colorkey((0, 0, 0))
-surf_1.set_alpha(100)
-ghost(surf_1, 0, 0, 1)
-screen.blit(surf_1, (500, 600))
-
-surf_2 = pygame.Surface((200, 200))
-surf_2.set_colorkey((0, 0, 0))
-surf_2.set_alpha(200)
-ghost(surf_2, 0, 0, 1)
-screen.blit(surf_2, (450, 650))
-
-surf_3 = pygame.Surface((200, 200))
-surf_3.set_colorkey((0, 0, 0))
-surf_3.set_alpha(100)
-ghost(surf_3, 0, 0, 1)
-screen.blit(surf_3, (500, 600))
+surface(500, 600, 100)
+surface(450, 650, 200)
+surface(500, 600, 100)
 
 ghost(screen, 150, 610, 1)
 ghost(screen, 80, 650, 1)
