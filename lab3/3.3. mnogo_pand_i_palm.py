@@ -14,7 +14,7 @@ def leaf(height, width, x, y, angle):
     screen.blit(surface2, (x, y))
 
 
-def bamboo(height, width, x, y):
+def bamboo(screen, height, width, x, y):
     leaf(int(0.20 * height), int(0.5 * width), x - int(4 * width), y
          - int(0.5 * height), 170)
     leaf(int(0.20 * height), int(0.5 * width), x - int(5 * width), y
@@ -94,7 +94,7 @@ def bamboo(height, width, x, y):
         )
 
 
-def panda(width, height, x, y):
+def panda(screen, width, height, x, y):
     ellipse(screen, (0, 0, 0), (x + int(0.6 * width), y + int(0.70
             * height), int(0.20 * width), int(0.4 * height)))
     circle(screen, (0, 0, 0), (x + int(0.9 * width), y + int(0.30
