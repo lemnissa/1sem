@@ -113,7 +113,6 @@ def table(points):
     """
     Функция обеспечивает вывод в левый верхний угол экрана таблички с текущим счетом игрока.
     :param points: текущее колличество очков
-    Функция подсмотрена у https://github.com/Ivan-Ivashkin
     """
     rect(screen, GREEN, (0, 0, 170, 40))
     my_font = pygame.font.Font(None, 50)
