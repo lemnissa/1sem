@@ -150,12 +150,12 @@ y = 654
 screen = pygame.display.set_mode((x, y))
 
 rect(screen, (255, 177, 129), (0, 0, x, y))
-bamboo(360, 20, 800, 368)
-bamboo(360, 30, 408, 368)
-bamboo(290, 15, 277, 374)
-bamboo(290, 15, 177, 400)
-panda(250, 125, 500, 300)
-panda(100, 50, 300, 500)
+bamboo(screen, 360, 20, 800, 368)
+bamboo(screen, 360, 30, 408, 368)
+bamboo(screen, 290, 15, 277, 374)
+bamboo(screen, 290, 15, 177, 400)
+panda(screen, 250, 125, 500, 300)
+panda(screen, 100, 50, 300, 500)
 
 pygame.display.update()
 clock = pygame.time.Clock()
