@@ -1,7 +1,7 @@
 import pygame
 from pygame.draw import *
 
-# draw house
+# draw house of size in interval (0, 1) on canvas with main coordinates of the top (x, y) 
 def house(canvas, x, y, size: {(0, 1)}):
     rect(
         canvas, 
@@ -66,7 +66,7 @@ def house(canvas, x, y, size: {(0, 1)}):
         )
     return
 
-# draw ghost
+# draw ghost of size in interval (0, 1) on canvas with main coordinates of the top (x, y)
 def ghost(canvas, x, y, size: {(0, 1)}):
     circle(
         canvas, 
@@ -119,18 +119,18 @@ def ghost(canvas, x, y, size: {(0, 1)}):
     )
     return
 
-# draw sky
+# draw sky on screen with main coordinates x, y
 def sky(screen, x, y):
     rect(screen, (90, 90, 90), (x, y, x + 720, y + 540))
     rect(screen, (0, 0, 0), (x, y, x + 720, y))
 
-# draw clouds
+# draw clouds on main coordinates x, y of central points and size characteristics lenth, height
 def clouds(screen, x, y, lenth, height):
     ellipse(screen, (100, 100, 100), (2*x + 50, y + 75, 5*lenth, 4*height))
     ellipse(screen, (128, 128, 128), (x, 3*y - 20, 6*lenth, 3*height))
     ellipse(screen, (60, 60, 60), (x, y, 6*lenth, 4*height))
 
-# draw transpanent ghost
+# draws transparent ghost centered in point (x, y) with transparency regularised by angle
 def surface(x, y, angle):
     surf = pygame.Surface((200, 200))
     surf.set_colorkey((0, 0, 0))
@@ -138,7 +138,7 @@ def surface(x, y, angle):
     ghost(surf, 0, 0, 1)
     screen.blit(surf, (x, y))
 
-# draw transpapent cloud
+# draws transparent cloud centered in point (x, y) with transparency regularised by angle
 def transp_cloud(x, y, angle):
     surf_6 = pygame.Surface((x, y))
     surf_6.set_colorkey((0, 0, 0))
@@ -146,7 +146,7 @@ def transp_cloud(x, y, angle):
     ellipse(surf_6, (105, 105, 105), (0, 0, x, y - 50))
     screen.blit(surf_6, (2*y, x - 50))
 
-# draw fog
+# draw fog surface centered in point (x, y) with transparency regulised by angle
 def fog(x, y, angle):
     surf_5 = pygame.Surface((y - 100, 3 * x))
     surf_5.set_colorkey((0, 0, 0))
@@ -163,10 +163,10 @@ screen = pygame.display.set_mode((720, 1080))
 sky(screen, 0, 0)
 clouds(screen, 100, 100, 100, 25)
 
-# moon
+# draws moon on surface screen
 circle(screen, (255, 255, 255), (600, 90), 70)
 
-# one more cloud
+# draws one more cloud on surface screen
 ellipse(screen, (140, 140, 140), (500, 100, 600, 75))
 
 fog(50, 700, 200)
